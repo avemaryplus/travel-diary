@@ -59,3 +59,23 @@ function showOptions(data) {
   })
 }
 
+function savePosts() {
+  localStorage.setItem('travel-posts', JSON.stringify(posts));
+  renderPosts();
+}
+
+function createPost() {
+  const formData = new FormData(postForm);
+  const post = {
+    country: formData.get('country'),
+    date: formData.get('date'),
+    message: formData.get('message')
+  };
+  checkForm();
+  if (formСompletion === true) {
+    posts.push(post);
+    savePosts();
+  }
+};
+
+
