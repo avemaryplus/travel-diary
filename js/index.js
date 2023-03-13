@@ -43,3 +43,19 @@ const showInfo = function () {
   })
 }
 
+showInfo();
+
+
+function showOptions(data) {
+  const countries = JSON.parse(data).map(function (country) {
+    return {
+      nameCommon: country.name.common,
+    }
+  });
+  countries.forEach(country => {
+    const option = document.createElement('option');
+    option.append(country.nameCommon);
+    select.append(option);
+  })
+}
+
