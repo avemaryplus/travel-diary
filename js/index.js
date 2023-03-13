@@ -79,3 +79,54 @@ function createPost() {
 };
 
 
+function checkForm() {
+  const valueDate = document.getElementById('dateInput').value;
+  const valueCountry = document.getElementById('countrySelect').value;
+  const valueMessage = document.getElementById('messageInput').value;
+  if (!valueDate) {
+    alert('Вы не указали дату!');
+  } else if (!valueCountry) {
+    alert('Вы не указали страну!');
+  } else if (!valueMessage) {
+    alert('Вы не заполнили сообщение!');
+  }
+  if (valueDate && valueCountry && valueMessage) {
+    formСompletion = true;
+  }
+}
+
+
+function toSubmit(event) {
+  event.preventDefault();
+  createPost();
+};
+
+postForm.addEventListener('submit', toSubmit);
+
+function deletePost(index) {
+  if (confirm('Вы действительно хотите удалить эту запись?')) {
+    posts.splice(index, 1);
+    savePosts();
+  }
+};
+
+function renderPosts() {
+  postsDiv.innerHTML = '';
+  posts.forEach((post, index) => {
+    const div = document.createElement('div');
+    div.classList.add('post');
+    const postHead = document.createElement('h3');
+    postHead.innerHTML = `Post <b>#${index + 1}</b> at <b>${post.date}</b> being in: <b>${post.country}</b>`;
+    div.append(postHead);
+    const message = document.createElement('p');
+    message.textContent = post.message;
+    div.append(message);
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'DELETE';
+    deleteButton.addEventListener('click', () => deletePost(index));
+    div.append(deleteButton);
+    postsDiv.append(div);
+  });
+}
+
+renderPosts();
